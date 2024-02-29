@@ -9,19 +9,19 @@ local default_opts = {
 
 -- Neoconfのスキーマに登録する
 require('neoconf.plugins').register {
-  name = 'typescript_detector',
+  name = 'typescript-detector',
   on_schema = function(schema)
-    schema:import('typescript_detector', default_opts)
+    schema:import('typescript-detector', default_opts)
   end,
 }
 
 function M.should_enable_tsserver()
-  local opts = neoconf.get('typescript_detector', default_opts)
+  local opts = neoconf.get('typescript-detector', default_opts)
   return opts.forceTsserver or M.opened_node_project()
 end
 
 function M.should_enable_deno()
-  local opts = neoconf.get('typescript_detector', default_opts)
+  local opts = neoconf.get('typescript-detector', default_opts)
   return opts.forceDeno or not M.opened_node_project()
 end
 
