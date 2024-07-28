@@ -1,4 +1,4 @@
-local neoconf = require 'neoconf'
+local nc = require 'nvim-conf'
 
 local M = {}
 
@@ -7,21 +7,13 @@ local default_opts = {
   forceDeno = false,
 }
 
--- Neoconfのスキーマに登録する
-require('neoconf.plugins').register {
-  name = 'typescript-detector',
-  on_schema = function(schema)
-    schema:import('typescript-detector', default_opts)
-  end,
-}
-
 function M.should_enable_tsserver()
-  local opts = neoconf.get('typescript-detector', default_opts)
+  local opts = nc.get().typescript_detector or default_opts
   return opts.forceTsserver or M.opened_node_project()
 end
 
 function M.should_enable_deno()
-  local opts = neoconf.get('typescript-detector', default_opts)
+  local opts = nc.get().typescript_detector or default_opts
   return opts.forceDeno or not M.opened_node_project()
 end
 
